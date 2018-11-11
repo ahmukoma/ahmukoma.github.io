@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Halcyon</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../projects-css/stream.css">
+		<script src="../../js/jquery-3.2.1.js"></script>
+	</head>
+	
+	<body>
+		<div class="container">
+			<canvas id="live-canvas" width="720" height="540"></canvas>
+			<canvas id="canvas" width="720" height="540"></canvas>
+			<video id="video" width="720" height="540" autoplay></video>
+		</div>
+	</body>
+	
+	<script>
+		$(document).ready(function(){
+            var l_Canvas = document.getElementById('live-canvas');
+            var c = l_Canvas.getContext('2d');
+            var vid = document.getElementById('video');
+            var url = window.url || window.webkitURL;
+            
+            navigator.getMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+            
+            if (navigator.getUserMedia){
+                navigator.getUserMedia({video: true, audio: false}, handleVideo, videoError);
+            }
+            
+            function handleVideo(stream){
+                vid.src = url.createObjectURL(stream);
+            }
+            
+            function videoError(e){
+                alert('There was an error.');
+            }
+		});
+	</script>
+</html>
