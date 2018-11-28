@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Projects</title>
+		
+		<link rel="stylesheet" type="text/css" href="../projects-css/passcode-entry.css">
+		<link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet"> 		
+		<script src="../../js/jquery-3.2.1.js"></script>
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<div class="container">
+			<div class="verify">
+				<h4>Screen ID Verification Code</h4>
+				<p>Enter this verification code on your screen to sign in.</p>
+				<ul>
+					<li class="id-num"></li>
+					<li class="id-num"></li>
+					<li class="id-num"></li>
+					<li class="id-num"></li>
+					<li class="id-num"></li>
+					<li class="id-num"></li>
+				</ul>
+			</div>
+			<div class="screen">
+				<div class="screen-img"></div>
+				<div class="passcode-entry">
+					<input type="hidden" value="" class="password">
+					<div class="info">
+						<label class="instructions">Touch ID or Enter Passcode</label>
+						<div class="dots-container">
+							<i class="dot"></i>
+							<i class="dot"></i>
+							<i class="dot"></i>
+							<i class="dot"></i>
+							<i class="dot"></i>
+							<i class="dot"></i>
+						</div>
+					</div>
+					<table>
+						<tr>
+							<td><button value="1" class="number"><label class="digits">1</label></button></td>
+							<td><button value="2" class="number"><label class="digits">2</label><br><label class="letters">ABC</label></button></td>
+							<td><button value="3" class="number"><label class="digits">3</label><br><label class="letters">DEF</label></button></td>
+						</tr>
+						<tr>
+							<td><button value="4" class="number"><label class="digits">4</label><br><label class="letters">GHI</label></button></td>
+							<td><button value="5" class="number"><label class="digits">5</label><br><label class="letters">JKL</label></button></td>
+							<td><button value="6" class="number"><label class="digits">6</label><br><label class="letters">MNO</label></button></td>
+						</tr>
+						<tr>
+							<td><button value="7" class="number"><label class="digits">7</label><br><label class="letters">PQRS</label></button></td>
+							<td><button value="8" class="number"><label class="digits">8</label><br><label class="letters">TUV</label></button></td>
+							<td><button value="9" class="number"><label class="digits">9</label><br><label class="letters">WXYZ</label></button></td>
+						</tr>
+						<tr>
+							<td colspan="3"><button value="0" class="number"><label class="digits">0</label><br></button></td>
+						</tr>
+					</table>
+					<div class="footer">
+						<ul>
+							<li><a class="emergency">Emergency</a></li>
+							<li><a class="control">Cancel</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var pwd = document.getElementsByClassName("password")[0].value;
+				var pwd_count = document.getElementsByClassName("dot");
+				var pwd_len = pwd.length;
+				var numbers = document.getElementsByClassName("number");
+				var control = document.getElementsByClassName("control")[0];
+				var indexID = document.getElementsByClassName("id-num");
+				
+				var translate = -57;
+				var error_animation = 0;
+				
+				var on = 1;
+				var off = 0;
+				
+				var passcode = "";
+				var entry_count = [];
+				
+				for (var h = 0; h < pwd_count.length; h++){
+					var rand_int = Math.floor(Math.random()*10);
+					entry_count.push(off)
+					indexID[h].innerHTML = rand_int;
+					passcode += String(rand_int);
+				}
+				
+				function invalid(){
+					if (error_animation < 5){
+					setTimeout(function(){
+						$(".dots-container").css("transform", "translate("+translate+"px)")
+						translate = - translate;
+						invalid()
+						error_animation++;
+						}, 57)
+					}else{
+						$(".dots-container").css("transform", "translate(0)")
+					}
+				};
+				
+				function interactive(){
+					
+					if (pwd.length <= 0){
+						control.innerHTML = "Cancel";
+					}else{
+						control.innerHTML = "Delete";
+					}
+					
+					for (var i = 0; i < entry_count.length; i++){
+						if (entry_count[i] == on){
+							$(pwd_count[i]).css("background-color", "#FFF");
+						}else{
+							$(pwd_count[i]).css("background-color", "transparent");
+						}
+					}
+					
+					if (pwd.length == pwd_count.length && pwd == passcode){
+						$(".verify").css("background-color", "rgb(78, 217, 100)").css("color", "#FFF");
+					}else{
+						$(".verify").css("background-color", "transparent").css("color", "#000");
+						if (pwd.length == pwd_count.length && pwd != passcode){
+							pwd = "";
+							entry_count = [off, off, off, off, off, off];
+							error_animation = 0;
+							
+							setTimeout(function(){
+								interactive();
+								invalid();
+							}, 454);
+							
+						}
+					}
+				}
+				
+				for (var n = 0; n < numbers.length; n++){
+					$(numbers[n]).click(function(){
+						if (pwd.length >= 0 && pwd.length < pwd_count.length){
+							var x = pwd.length;
+							entry_count[x] = on;
+							
+							var entry = $(this).val();
+							pwd += entry;
+							interactive();
+						}
+					});
+				}
+				
+				$(".control").click(function(){
+					if (pwd.length > 0 && pwd.length <= pwd_count.length){
+						var del = pwd.slice(0, pwd.length - 1);
+						pwd = del;
+						
+						var j =  pwd.length;
+						entry_count[j] = off;
+						interactive();
+					}
+				});
+				
+				$(".verify").delay(500).fadeIn();
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Projects</title>
+		<link rel="stylesheet" type="text/css" href="../projects-css/generic-calculator.css">
+		<link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
+		<script src="../../js/jquery-3.2.1.js"></script>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<div class="container">
+			<div class="screen">
+				<table>
+					<tr><td class="display" colspan="4">0</td></tr>
+					<tr>
+						<td><input type="button" value="AC" class="button options all-clear"></td>
+						<td><input type="button" value="+/-" class="button options negate"></td>
+						<td><input type="button" value="%" class="button options percent"></td>
+						<td><button value="/" class="button operators">&divide;</button></td>
+					</tr>
+					<tr>
+						<td><input type="button" value="7" class="button num"></td>
+						<td><input type="button" value="8" class="button num"></td>
+						<td><input type="button" value="9" class="button num"></td>
+						<td><button value="*" class="button operators">&times;</button></td>
+					</tr>
+					<tr>
+						<td><input type="button" value="4" class="button num"></td>
+						<td><input type="button" value="5" class="button num"></td>
+						<td><input type="button" value="6" class="button num"></td>
+						<td><input type="button" value="-" class="button operators"></td>
+					</tr>
+					<tr>
+						<td><input type="button" value="1" class="button num"></td>
+						<td><input type="button" value="2" class="button num"></td>
+						<td><input type="button" value="3" class="button num"></td>
+						<td><input type="button" value="+" class="button operators"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="button" value="0" class="button num zero"></td>
+						<td><input type="button" value="." class="button decimal"></td>
+						<td><input type="button" value="=" class="button equal"></td>
+					</tr>
+				</table>
+			</div>
+        </div>
+    </body>
+    <script>
+        $(document).ready(function(){
+            var num = document.getElementsByClassName('num');
+            var operators = document.getElementsByClassName('operators');
+            var display = document.getElementsByClassName('display')[0];
+            var calculations = '';
+            var decimal = true;
+            var br = 1;
+            
+            function responsive_text(){
+					var chars = $(display).html();
+					if (chars.length > 12 && chars.length < 24){
+						$(display).css("font-size", (456/(chars.length-4))+"px")
+					}else{
+						if (chars.length > 23){
+							$(display).css("font-size", "23px");
+							if (br == 1){
+								display.innerHTML += "<br>";
+								br = 0;
+							}
+						}else{
+							$(display).css("font-size", "57px")
+						}
+					}
+				}
+            
+            for (var i = 0; i < num.length; i++){
+                $(num[i]).click(function(){
+                    var current = Number(display.innerHTML);
+                    var value = $(this).val();
+                    var last_char = calculations.charAt(calculations.length-1);
+                    if (current == 0 && last_char >= 0){
+                        display.innerHTML = value;
+                        calculations = value;
+                    }else{
+                        if (last_char >= 0 || last_char == '.'){
+                            display.innerHTML += value;
+                            calculations += value;
+                        }else{
+                            display.innerHTML = value;
+                            calculations += value;
+                        }
+                    }
+                    responsive_text();
+                });
+            }
+            
+            for (var i = 0; i < operators.length; i++){
+                $(operators[i]).click(function(){
+                    var opr = $(this).val();
+                    calculations = String(calculations)
+                    var last_char = calculations.charAt(calculations.length-1);
+                    if (last_char >= 0){
+                        display.innerHTML = eval(calculations);
+                        calculations = eval(calculations);
+                        calculations += opr;
+                    }else{
+                        var replace_opr = calculations.slice(0, calculations.length-1);
+                        calculations = replace_opr + opr;
+                    }
+                    
+                    decimal = true;
+                    responsive_text();
+                });
+            }
+            
+            $('.all-clear').click(function(){display.innerHTML = 0; calculations = '0'; decimal = true;});
+            $('.percent').click(function(){
+                calculations = String(calculations);
+                var last_char = calculations.charAt(calculations.length-1);
+                if (last_char >= 0 ){
+                    calculations = eval(calculations);
+                    calculations = calculations / 100;
+                }else{
+                    var replace_opr = calculations.slice(0, calculations.length-1);
+                    calculations = replace_opr / 100;
+                }
+                display.innerHTML = calculations;
+                responsive_text();
+            });
+            
+            $('.decimal').click(function(){
+                var last_char = calculations.charAt(calculations.length-1)
+                var dec = $(this).val();
+                if (decimal == true && last_char >= 0){
+                    display.innerHTML += dec;
+                    calculations += dec;
+                    decimal = false;
+                }else{
+                    display.innerHTML = '0' + dec;
+                    calculations += '0' + dec;
+                }
+            });
+            
+            $('.negate').click(function(){
+                var neg = display.innerHTML;
+                display.innerHTML = -neg;
+            })
+            $('.equal').click(function(){
+                var last_char = calculations.charAt(calculations.length-1);
+                var evaluate;
+                
+                if (last_char >= 0){
+                    evaluate = eval(calculations)
+                }else{
+                    var replace_opr = calculations.slice(0, calculations.length-1)
+                    evaluate = eval(replace_opr);
+                }
+                
+                decimal = true
+                display.innerHTML = evaluate;
+                responsive_text();
+            });
+            
+        });
+    </script>
+</html>

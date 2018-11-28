@@ -1,0 +1,196 @@
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+	box-sizing: border-box;
+	font-family: 'lato', sans-serif;
+	font-weight: 900;
+}
+
+html, body{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.container{
+	width: 100%;
+	height: 100%;
+	position: relative;
+	display: flex;
+}
+
+.screen{
+	width: 405px;
+	height: 720px;
+	margin: auto;
+	position: relative;
+	overflow: hidden
+}
+
+.screen-img{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: url("../../images/projects/ios.jpg");
+	background-size: cover;
+}
+
+.passcode-entry{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	text-align: center;
+}
+
+.info{
+	width: 70%;
+	margin: auto;
+	position: absolute;
+	top: 100px;
+	right: 0;
+	left: 0;
+	text-align: center;
+}
+
+.instructions{
+	color: #FFF;
+	margin-bottom: 0.8em;
+	display: block;
+	letter-spacing: 2px;
+	word-spacing: 3px;
+}
+
+.dots-container{
+	width: 100%;
+	display: flex;
+	padding: 0.25em 1.25em;;
+	margin: auto;
+}
+
+.passcode-entry .dots-container .dot{
+	width: 14px;
+	height: 14px;
+	border: 1px solid #FFF;
+	margin: auto;
+	border-radius: 100%;
+}
+
+table{
+	width: 80%;
+	height: 56%;
+	margin: auto;
+	position: absolute;
+	top: 190px;
+	right: 0;
+	left: 0;
+	table-layout: fixed;
+}
+
+td{
+	text-align: center;
+	width: 100%;
+}
+
+.dots-container{
+	-o-transition: 0.1s;
+	-ms-transition: 0.1s;
+	-moz-transition: 0.1s;
+	-webkit-transition: 0.1s;
+	transition: 0.1s;
+}
+
+.verify, .dot, .number, .footer a{
+	-o-transition: 0.27s;
+	-ms-transition: 0.27s;
+	-moz-transition: 0.27s;
+	-webkit-transition: 0.27s;
+	transition: 0.27s;
+}
+
+.number{
+	width: 70px;
+	height: 70px;
+	border: 0;
+	border-radius: 100%;
+	margin: auto;
+	outline: none;
+	background-color: rgba(255,255,255, 0.27);
+	color: #FFF;
+	letter-spacing: 0.2em;
+}
+
+.number, label{
+	cursor: pointer;
+}
+
+.digits{font-size: 27px;}
+.letters{
+	font-size: 10px;
+}
+
+.number:hover{
+	background-color: rgba(255, 255, 255, 0.64);
+}
+
+.footer{
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+}
+
+.footer ul{
+	display: flex;
+	padding: 19px;
+	padding-bottom: 56px;
+}
+
+.footer ul li{
+	width: 50%;
+	color: #FFF;
+	letter-spacing: 0.08em;
+}
+
+.footer a{
+	padding: 2px;
+	cursor: pointer;
+}
+
+.footer a:hover{
+	color: rgba(255, 255, 255, 0.2)
+}
+
+.verify{
+	border: 1px solid #eee;
+	border-radius: 20px;
+	position: absolute;
+	margin: 20px;
+	text-align: center;
+	width: 300px;
+	padding: 19px 8px;
+	display: none;
+}
+
+.verify h4{
+	font-weight: 600;
+	font-family: sans-serif;
+	letter-spacing: 1px;
+}
+
+.verify p{
+	margin-bottom: 19px;
+	letter-spacing: 1px;
+}
+
+.verify ul li {
+	display: inline-block;
+	font-weight: 900;
+	font-size: 2em;
+	margin: 2px;
+	
+}
+
+.verify ul li:nth-child(3){
+	margin-right: 19px;
+}

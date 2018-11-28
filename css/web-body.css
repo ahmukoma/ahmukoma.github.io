@@ -51,16 +51,19 @@ td{
 	margin: 8px 0;
 }
 
-.creator-img{
+.creator-img-div{
     position: relative;
     width: 100%;
+    position: relative;
+    max-width: 200px;
+    height: 200px;
+    width: 200px;
 }
 
-.creator-img .suave-me{
+.creator-img-div .suave-me{
     width: 100%;
-    margin: auto;
+    height: 100%;
     border-radius: 100%;
-    max-width: 200px;
 }
 
 .brief{
@@ -148,6 +151,91 @@ td{
     background-color: #FFF;
 }
 
+.prj-container{
+}
+
+.prj-container .sq-tbl{
+    width: 100%;
+    margin: 2px 0;
+    position: relative;
+}
+
+.sq-tbl .prj-face-td{
+    margin: 2px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.sq-tbl .prj-face-td:before{
+    display: block;
+    content: '';
+    padding-top: 100%;
+}
+
+.td-data{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    display: flex;
+}
+
+.prj-tbl-img-div{
+    width: 100%;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.prj-tbl-img-div img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.td-info-text{
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 8px;
+    
+    -o-transition: 0.19s;
+    -ms-transition: 0.19s;
+    -moz-transition: 0.19s;
+    -webkit-transition: 0.19s;
+    transition: 0.19s;
+}
+
+.td-info-text:hover{
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.td-info-text .text-wrapper{
+    margin: auto;
+    text-align: center;
+}
+
+.td-data .td-info-text h2, .td-info-text p{
+    color: #FFF0;
+    letter-spacing: 0.008em;
+    
+    -o-transition: 0.19s;
+    -ms-transition: 0.19s;
+    -moz-transition: 0.19s;
+    -webkit-transition: 0.19s;
+    transition: 0.19s;
+}
+
+.td-data:hover .td-info-text h2, .td-data:hover .td-info-text p{
+    color: #EEE;
+}
+
 .experience-info h3{
     color: #555;
     margin: 19px 0;
@@ -168,7 +256,7 @@ td{
 .experience-info img{
     max-width: 800px;
     width: 100%;
-    cursor: zoom-in;
+/*    cursor: zoom-in;*/
 }
 
 .experience-info h4{
@@ -230,7 +318,7 @@ td{
     left: 0;
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 10000;
-    cursor: zoom-out;
+/*    cursor: zoom-out;*/
     display: none;
 }
 
